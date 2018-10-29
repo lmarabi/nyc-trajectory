@@ -1,0 +1,1 @@
+java -jar ./dist/nyc-1-withlib.jar /export/scratch/mntgData/nyc_networkGraph/LargeNYC/node.txt /export/scratch/mntgData/nyc_networkGraph/LargeNYC/edge.txt /export/scratch/mntgData/nyc_networkGraph/LargeNYC/graph.txt
