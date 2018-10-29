@@ -2,7 +2,7 @@
 This is a sub-project done as preperation part to my research in supporting trajectory data. This project can support any dataset that has <id,time,startlocation,endlocation>. The full trajectory data is prepared based on Dijkstras shortest path algorithm. 
 
 ## Download data to process. 
-1. Download road network from [TAREEG](WWW.TAREEG.ORG).
+1. Download road network from [TAREEG](http://www.tareeg.org/).
 2. Download nyc taxi data from [nyc Gov](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml). You can use the provided python script **download.py**
 
 ## Preprocess nyc taxi. 
