@@ -7,9 +7,9 @@
 	<property name="dist.dir" location="dist" />
 	<property name="docs.dir" location="docs" />
 	<property name="lib.dir" location="lib" />
-	<property name="software" value="nyc" />
+	<property name="software" value="nyc-astar" />
 	<property name="version" value="1" />
-	<property name="mainClass" value="Dijkstra.MainNyc" />
+	<property name="mainClass" value="AStar.MainAstar.java" />
 	
 	<!--
 	    Create a classpath container which can be later used in the ant task
