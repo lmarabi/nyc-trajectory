@@ -9,7 +9,7 @@
 	<property name="lib.dir" location="lib" />
 	<property name="software" value="nyc-astar" />
 	<property name="version" value="1" />
-	<property name="mainClass" value="AStar.MainAstar.java" />
+	<property name="mainClass" value="AStar.MainAstar" />
 	
 	<!--
 	    Create a classpath container which can be later used in the ant task
