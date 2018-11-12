@@ -83,7 +83,7 @@ public class MainNyc {
 		String outputline = null;
 		String[] s;
 		double start_longtitude, start_latitude, end_longtitude, end_latitude;
-		String id, time;
+		String id, timepickup, timedropff;
 		Node startNode;
 		Node endNode;
 		try {
@@ -91,48 +91,65 @@ public class MainNyc {
 				// ID,StartTime,Start_Long,Start_Lat,End_Long,End_Lat.
 				if (line.contains(",")) {
 					s = line.split(",");
-					id = s[0];
-					time = s[1];
-					start_longtitude = Double.parseDouble(s[2]);
-					start_latitude = Double.parseDouble(s[3]);
-					end_longtitude = Double.parseDouble(s[4]);
-					end_latitude = Double.parseDouble(s[5]);
-					if (start_longtitude != 0 || end_longtitude != 0
-							|| start_latitude != 0 || end_latitude != 0) {
+					if (s.length == 7) {
 
-						startNode = new Node(0, start_longtitude,
-								start_latitude);
-						endNode = new Node(0, end_longtitude, end_latitude);
-						startNode.setId(mapMatching(startNode));
-						endNode.setId(mapMatching(endNode));
-						// Get the shortest path between start node and end node
-						DijkstraSP sp = new DijkstraSP(G, startNode.getId());
-						Iterable<DirectedEdge> path = sp
-								.pathTo(endNode.getId());
-						if (path != null) {
-							System.out.println("Path " + startNode.getId()
-									+ "--->" + endNode.getId());
-							outputline = id + "," + time + ","
-									+ start_longtitude + "&" + start_latitude;
-							fwriter.write(outputline);
-							for (DirectedEdge edge : path) {
-								// int start = edge.from();
-								int end = edge.to();
-								// Node sNode = nodeMap.get(start);
-								Node eNode = nodeMap.get(end);
-								// System.out.println(sNode.toString() + "\t"
-								// + eNode.toString());
-								outputline = "," + eNode.getLongtitude() + "&"
-										+ eNode.getLatitude();
-								fwriter.write(outputline);
+						try {
 
+							id = s[0];
+							timepickup = s[1];
+							timedropff = s[2];
+							start_longtitude = Double.parseDouble(s[3]);
+							start_latitude = Double.parseDouble(s[4]);
+							end_longtitude = Double.parseDouble(s[5]);
+							end_latitude = Double.parseDouble(s[6]);
+							if (start_longtitude != 0 || end_longtitude != 0
+									|| start_latitude != 0 || end_latitude != 0) {
+
+								startNode = new Node(0, start_longtitude,
+										start_latitude);
+								endNode = new Node(0, end_longtitude,
+										end_latitude);
+								startNode.setId(mapMatching(startNode));
+								endNode.setId(mapMatching(endNode));
+								// Get the shortest path between start node and
+								// end
+								// node
+								DijkstraSP sp = new DijkstraSP(G,
+										startNode.getId());
+								Iterable<DirectedEdge> path = sp.pathTo(endNode
+										.getId());
+								if (path != null) {
+									System.out.println("Path "
+											+ startNode.getId() + "--->"
+											+ endNode.getId());
+									outputline = id + "," + timepickup + ","
+											+ timedropff + ","
+											+ start_longtitude + "&"
+											+ start_latitude;
+									fwriter.write(outputline);
+									for (DirectedEdge edge : path) {
+										// int start = edge.from();
+										int end = edge.to();
+										// Node sNode = nodeMap.get(start);
+										Node eNode = nodeMap.get(end);
+										// System.out.println(sNode.toString() +
+										// "\t"
+										// + eNode.toString());
+										outputline = ","
+												+ eNode.getLongtitude() + "&"
+												+ eNode.getLatitude();
+										fwriter.write(outputline);
+
+									}
+									fwriter.write("\n");
+								}
+								// System.out.print("Cost of Distance: ");
+								// System.out.println(sp.distTo(1343307));
 							}
-							fwriter.write("\n");
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-						// System.out.print("Cost of Distance: ");
-						// System.out.println(sp.distTo(1343307));
 					}
-
 				}
 			}
 			fwriter.flush();
@@ -149,14 +166,16 @@ public class MainNyc {
 	}
 
 	public static void main(String[] args) {
-		 if(args.length < 4){
-		 System.out.println("Usage: nodefile graphfile rowdataset outputtrajectoryfile\n");
-		 }
-		 MainNyc mn = new MainNyc(args[0], args[1], args[2], args[3]);
-		long t1 = System.currentTimeMillis(); 
+		if (args.length < 4) {
+			System.out
+					.println("Usage: nodefile graphfile rowdataset outputtrajectoryfile\n");
+		}
+		MainNyc mn = new MainNyc(args[0], args[1], args[2], args[3]);
+		long t1 = System.currentTimeMillis();
 		processing();
 		long t2 = System.currentTimeMillis();
-		System.out.print("Time for computing shortestpath: "+ (t2-t1) +" ms");
+		System.out.print("Time for computing shortestpath: " + (t2 - t1)
+				+ " ms");
 	}
 
 }
